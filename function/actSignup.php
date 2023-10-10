@@ -8,13 +8,16 @@
         }
 
         $fullname = htmlentities($_POST['fullname']);
+        $fullname = mysqli_real_escape_string($conn, $fullname);
         $email    = htmlentities($_POST['email']);
+        $email = mysqli_real_escape_string($conn, $email);
 //        $password  = sha1($_POST['password']);
         $saltKeys = 'A%^&*as';
         $password  = password_hash($_POST['password'].$saltKeys, PASSWORD_BCRYPT);
 
         // check user
         try {
+
             $sql_select = "SELECT email from users where email = '$email' ";
             $result = $conn->query($sql_select);
             if ($result->num_rows > 0) {

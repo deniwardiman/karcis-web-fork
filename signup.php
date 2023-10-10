@@ -2,13 +2,27 @@
 include "header.php";
 ?>
 
+<script>
+    function validateForm() {
+        var email = document.forms["loginForm"]["email"].value;
+        var password = document.forms["loginForm"]["password"].value;
+
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address.");
+            return false;
+        }
+    }
+</script>
+
 <div class="bg-navy">
     <div class="container">
         <center>
             <br>
             <div class="card col-4 montserrat" style="padding-top: 20px; box-shadow: 0px 1px 8px 0.5px #FFF; border-radius: 20px;">
                 <div class="card-body">
-                    <form method="post" action="<?php echo $host;?>function/actSignup.php">
+                    <form method="post" action="<?php echo $host;?>function/actSignup.php" onsubmit="validateForm()">
                     <h2 class="sr-only">Login Form</h2>
                         <?php if(@$_GET['status'] == 'failed'){?>
                             <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Signup Failed</b>
