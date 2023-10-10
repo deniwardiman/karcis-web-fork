@@ -15,10 +15,6 @@
 
         // check user
         try {
-            $_fullname = mysqli_real_escape_string($fullname);
-            $_email = mysqli_real_escape_string($email);
-            $_password = mysqli_real_escape_string($password);
-
             $sql_select = "SELECT email from users where email = '$_email' ";
             $result = $conn->query($sql_select);
             if ($result->num_rows > 0) {
