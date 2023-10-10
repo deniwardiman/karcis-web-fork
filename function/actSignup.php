@@ -13,6 +13,8 @@
         $saltKeys = 'A%^&*as';
         $password  = password_hash($_POST['password'].$saltKeys, PASSWORD_BCRYPT);
 
+        //tes
+
         // check user
         try {
             $sql_select = "SELECT email from users where email = '$_email' ";
