@@ -1,0 +1,59 @@
+.font-notify {
+    font-size: 1rem;
+    color: rgb(244,71,107)
+}
+
+.font-field-title {
+    color: #858585;
+    font-size: 0.9rem
+}
+
+.font-field {
+    color: #505e6c;
+    font-size: 1.25rem
+}
+
+.btn-karcis-primary {
+    border-radius: 4px;
+    color: #fff;
+    background-color: rgb(175, 61, 86);
+    border-color: rgb(175, 61, 86);
+    letter-spacing: 2px;
+}
+
+.btn-karcis-primary:hover {
+    border-radius: 4px;
+    color: #fff;
+    background-color: rgb(131, 46, 64);
+    border-color: rgb(131, 46, 64);
+    letter-spacing: 2px;
+}
+
+.btn-karcis-primary:disabled {
+    border-radius: 4px;
+    color: dimgray;
+    background-color: gray;
+    border-color: gray;
+    letter-spacing: 2px;
+}
+
+.profile-body {
+    background: rgb(175, 61, 86);
+    height: auto; padding-top: 3rem;
+    padding-bottom: 3rem
+}
+
+.profile-card {
+    width: 80%;
+    height: auto;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 4px;
+    color: #505e6c;
+    margin: 0 auto;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+.profile-line {
+    border-top: 1px solid rgba(175, 61, 86, 0.4);
+}

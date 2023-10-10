@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+  # app
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_karcis
+    depends_on:
+      - db
+    volumes:
+      - ./:/var/www/html/
+    ports:
+      - "8080:80"
+    networks:
+      - karcis-net
+
+  # database
+  db:
+    container_name: db_karcis
+    image: mysql:8.0.21
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABSE: db_kas
+    ports:
+      - "3307:3306"
+    networks:
+      - karcis-net
+
+  # phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin_karcis
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    ports:
+      - "8085:80"
+    networks:
+      - karcis-net
+
+networks:
+  karcis-net:
+    external: true

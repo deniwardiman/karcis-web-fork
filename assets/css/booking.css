@@ -1,0 +1,54 @@
+.booking-body {
+    background: rgb(175, 61, 86);
+    height: auto; padding-top: 3rem;
+    padding-bottom: 3rem
+}
+
+.booking-card {
+    width: 80%;
+    height: auto;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 4px;
+    color: #505e6c;
+    margin: 0 auto;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+.booking-line {
+    border-top: 1px solid rgba(175, 61, 86, 0.4);
+}
+
+.booking-img-ticket-item {
+    width: 60px;
+    height: 60px;
+    padding: 8px
+}
+
+.booking-font-field-title {
+    color: #5a6b79;
+    font-size: 1rem;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    text-align: left;
+}
+
+.booking-font-field {
+    color: #3d4853;
+    font-size: 1.2rem;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    text-align: left;
+}
+
+.btn-booking-primary {
+    text-align: right;
+    height: 100%;
+    border-radius: 4px;
+    color: rgb(175, 61, 86);
+    background-color: #fff;
+    border-color: #fff;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    font-weight: 600;
+}
