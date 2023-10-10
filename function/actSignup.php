@@ -15,23 +15,29 @@
 
         // check user
         try {
-            $sql_select = "SELECT email from users where email = '$email' ";
+            $_fullname = mysqli_real_escape_string($fullname);
+            $_email = mysqli_real_escape_string($email);
+            $_password = mysqli_real_escape_string($password);
+
+            $sql_select = "SELECT email from users where email = '$_email' ";
             $result = $conn->query($sql_select);
             if ($result->num_rows > 0) {
                 header('location:'.$host.'signup.php?status=failed');
             } else {
                 // insert to database
-                $sql_insert = "INSERT INTO users (email, password) VALUES ('$email', '$password')";
+                $sql_insert = "INSERT INTO users (email, password) VALUES ('$_email', '$_password')";
 
                 if ($conn->query($sql_insert) === TRUE) {
                     $sql_profile = "INSERT INTO user_profile (id_user,fullname) VALUES ('$conn->insert_id','$fullname')";
                     if($conn->query($sql_profile) === TRUE){
                         header('location:'.$host.'signin.php?status=success');
-                    } else {;
+                    } else {
                         echo("Error description: " . mysqli_error($conn));
                     }
                 }
             }
+
+            $conn->close();
         } catch (Exception $e) {
             header('location:'.$host.'signup.php?status=failed');
         }
