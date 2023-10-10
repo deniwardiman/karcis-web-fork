@@ -1,66 +1,43 @@
 <?php
-include "../conn.php";
 
-@session_start();
+    include "../conn.php";
 
-$id_user = @$_SESSION['id'];
+    $email = @$_POST['email'];
+    $password = sha1(@$_POST['password']);
 
-$submit = @$_POST['submit'];
-$identity = (int)$submit[0];
-
-$id_ticket = @$_POST['id_ticket'][$identity];
-$seats = @$_POST['seats'][$identity];
-$price = (int)@$_POST['price'][$identity];
-
-$percent = 10;
-$percentInDecimal = $percent / 100;
-
-// Get the result.
-$percent = $percentInDecimal * $price;
-
-$total_price = $price + $percent;
-
-// Validate seats and price based on data
-$sql_ticket_info = "SELECT seats, price FROM tickets WHERE id = $id_ticket";
-$result_ticket_info = $conn->query($sql_ticket_info);
-
-if ($result_ticket_info->num_rows > 0) {
-    $ticket_info = $result_ticket_info->fetch_assoc();
-    $available_seats = $ticket_info['seats'];
-    $original_price = $ticket_info['price'];
-
-    // Check if the requested number of seats is available
-    if ($seats < 1 || $seats > $available_seats) {
-        header('Location: '.$host.'tickets.php?status=seatsFailed' );
-        exit;
+    if (isset($_SESSION['login_attempts']) && $_SESSION['login_attempts'] >= 3) {
+        $lockout_duration = 300; 
+        if (time() - $_SESSION['last_login_attempt_time'] < $lockout_duration) {
+            header('Location: '.$host.'signin.php?status=account_locked');
+            exit();
+        } else {
+            unset($_SESSION['login_attempts']);
+            unset($_SESSION['last_login_attempt_time']);
+        }
     }
 
-    // Check if the requested price matches the original price
-    if ($price !== $original_price) {
-        header('Location: '.$host.'tickets.php?status=priceMismatch' );
-        exit;
-    }
-} else {
-    // Ticket not found
-    header('Location: '.$host.'tickets.php?status=ticketNotFound' );
-    exit;
-}
+    $email = mysqli_real_escape_string($conn, $email);
+    $password = mysqli_real_escape_string($conn, $password);
 
-// Insert into table booking
-$sql = "INSERT INTO booking (id_user, id_ticket, status, price) VALUES ('$id_user', '$id_ticket', 0,'$total_price')";
+    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
 
-if ($conn->query($sql) === TRUE) {
-    // Update seats in table tickets
-    $sql_update = "UPDATE tickets SET seats = seats - $seats WHERE id = $id_ticket";
-    if($conn->query($sql_update) === FALSE){
-        echo("Error description: " . mysqli_error($conn));
-        exit;
+    $result = $conn->query($sql);
+
+
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+            session_start();
+            @$_SESSION["id"] = $row['id'];
+            @$_SESSION["fullname"] = $row['fullname'];
+            @$_SESSION['tipe'] = 'users';
+
+            header('Location: '.$host.'profile.php');
+        }
     } else {
-        header('Location: '.$host.'myBookings.php?status=success');
+        header('Location: '.$host.'signin.php?status=failed' );
     }
-} else {
-    echo("Error description: " . mysqli_error($conn));
-}
+    $conn->close();
 
-$conn->close();
+
 ?>
