@@ -4,7 +4,8 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = @$_POST['email'];
-        $password = sha1(@$_POST['password']);
+        $saltKeys = 'A%^&*as';
+        $password = password_hash(@$_POST['password'].$saltKeys, PASSWORD_BCRYPT);
 
         $sql = "SELECT * FROM users where email = '$email' and password = '$password'";
         $result = $conn->query($sql);
