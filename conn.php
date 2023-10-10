@@ -15,5 +15,7 @@ $host = 'https://b2c8-182-3-46-87.ngrok-free.app/karcis-web/';
 
 error_reporting(E_ALL);
 
+$saltKeys = 'A%^&*as';
+
 
 ?>

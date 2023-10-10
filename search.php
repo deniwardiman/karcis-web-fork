@@ -3,11 +3,8 @@ include "header.php";
 
 $id_booking = @$_GET['IDBOOKING'];
 
-
-    
 // get data user
 $ticket = "SELECT tickets.*, booking.id as id_booking, booking.price as booking_price, booking.id_user, user_profile.fullname FROM booking LEFT JOIN user_profile ON user_profile.id_user = booking.id_user LEFT JOIN tickets ON tickets.id = booking.id_ticket  WHERE booking.id = $id_booking";
-
 $result = $conn->query($ticket);
 
 ?>
@@ -65,7 +62,7 @@ $result = $conn->query($ticket);
                     </div>
                 </div>
             </div>
-            <?php $no++; }  } ?>
+            <?php $no++; } }?>
         </div>
     </div>
 </div>
@@ -75,6 +72,7 @@ $result = $conn->query($ticket);
     <script src="assets/js/smoothproducts.min.js"></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/bs-animation.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 
 </html>

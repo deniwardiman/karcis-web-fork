@@ -12,7 +12,13 @@ include "function/getTickets.php";
                 if(@$_GET['status'] == 'success'){
             ?>
                 <b style="display: block;position: relative;text-align:center;" class="text-white">Profile Updated</b>
-            <?php } ?>
+            <?php } elseif (@$_GET['status'] == 'seatsFailed') { ?>
+                    <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Seat Not Available</b>
+            <?php } elseif (@$_GET['status'] == 'priceMismatch') { ?>
+                    <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Price Not Updated</b>
+            <?php } elseif (@$_GET['status'] == 'ticketNotFound') { ?>
+                <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Ticket Not Found</b>
+            <?php }?>
             </div>
         </div>
         <h3 class="text-white">Find your ticket now</h3>
@@ -60,11 +66,12 @@ include "function/getTickets.php";
     </div>
     <br><br><br><br><br><br>
 </div>
-<script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/smoothproducts.min.js"></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/bs-animation.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 
 </html>

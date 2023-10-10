@@ -9,7 +9,7 @@
     $identity = (int)$submit[0];
 
     $id_ticket = @$_POST['id_ticket'][$identity];
-    $seats = @$_POST['seats'][$identity];
+    $seats = (int)@$_POST['seats'][$identity];
     $price = (int)@$_POST['price'][$identity];
 
     $percent = 10;
@@ -17,7 +17,6 @@
 
     // Get the result.
     $percent = $percentInDecimal * $price;
-
     $total_price = $price + $percent;
 
     // Validate seats and price based on data
@@ -26,7 +25,7 @@
 
     if ($result_ticket_info->num_rows > 0) {
         $ticket_info = $result_ticket_info->fetch_assoc();
-        $available_seats = $ticket_info['seats'];
+        $available_seats = (int)$ticket_info['seats'];
         $original_price = (int)$ticket_info['price'];
 
         // Check if the requested number of seats is available
@@ -34,7 +33,6 @@
             header('Location: '.$host.'tickets.php?status=seatsFailed' );
             exit;
         }
-
         // Check if the requested price matches the original price
         if ($price !== $original_price) {
             header('Location: '.$host.'tickets.php?status=priceMismatch' );
@@ -47,11 +45,10 @@
     }
 
     // Insert into table booking
-    $sql = "INSERT INTO booking (id_user, id_ticket, status, price) VALUES ('$id_user', '$id_ticket', 0,'$total_price')";
-
+    $sql = "INSERT INTO booking (id_user, id_ticket, status, price) VALUES ('$id_user', '$id_ticket', 0, '$total_price')";
     if ($conn->query($sql) === TRUE) {
         // Update seats in table tickets
-        $sql_update = "UPDATE tickets SET seats = seats - $seats WHERE id = $id_ticket";
+        $sql_update = "UPDATE tickets SET seats = seats - 1 WHERE id = $id_ticket";
         if($conn->query($sql_update) === FALSE){
             echo("Error description: " . mysqli_error($conn));
             exit;

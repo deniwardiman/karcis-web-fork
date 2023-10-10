@@ -12,7 +12,6 @@
         $email    = htmlentities($_POST['email']);
         $email = mysqli_real_escape_string($conn, $email);
 //        $password  = sha1($_POST['password']);
-        $saltKeys = 'A%^&*as';
         $password  = password_hash($_POST['password'].$saltKeys, PASSWORD_BCRYPT);
 
         // check user

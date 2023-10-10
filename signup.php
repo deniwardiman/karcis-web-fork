@@ -35,12 +35,12 @@ include "header.php";
                     </center>
 
                     <div class="form-group" style="color: #C4C4C4;"><input class="form-control" type="text"
-                                                                           name="fullname" placeholder="Full Name">
+                                                                           name="fullname" placeholder="Full Name" required>
                     </div>
                     <div class="form-group" style="color: #C4C4C4;"><input class="form-control" type="email"
-                                                                           name="email" placeholder="Email"></div>
+                                                                           name="email" placeholder="Email" required></div>
                     <div class="form-group" style="color: #C4C4C4;"><input class="form-control" type="password"
-                                                                           name="password" placeholder="Password"></div>
+                                                                           name="password" placeholder="Password" required></div>
                     <br>
                     <div class="form-group">
                         <button class="btn btn-primary btn-block" type="submit"
@@ -48,7 +48,7 @@ include "header.php";
                             Sign Up
                         </button>
                     </div>
-                    <a class="forgot" href="#" style="font-size: 13px;"><u>Forgot password?</u></a>
+                    <a class="forgot" href="forgotPassword.php" style="font-size: 13px;"><u>Forgot password?</u></a>
                     </form>
                 </div>
             </div>
