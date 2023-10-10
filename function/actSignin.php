@@ -3,7 +3,8 @@
     include "../conn.php";
 
     $email = @$_POST['email'];
-    $password = sha1(@$_POST['password']);
+    $saltKeys = 'A%^&*as';
+    $password = password_hash(@$_POST['password'].$saltKeys, PASSWORD_BCRYPT);
 
     if (isset($_SESSION['login_attempts']) && $_SESSION['login_attempts'] >= 3) {
         $lockout_duration = 300; 
@@ -17,7 +18,6 @@
     }
 
     $email = mysqli_real_escape_string($conn, $email);
-    $password = mysqli_real_escape_string($conn, $password);
 
     $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
 
