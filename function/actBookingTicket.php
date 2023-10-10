@@ -23,7 +23,6 @@
     // Validate seats and price based on data
     $sql_ticket_info = "SELECT seats, price FROM tickets WHERE id = $id_ticket";
     $result_ticket_info = $conn->query($sql_ticket_info);
-    echo "fdsa";
 
     if ($result_ticket_info->num_rows > 0) {
         $ticket_info = $result_ticket_info->fetch_assoc();
@@ -35,8 +34,6 @@
             header('Location: '.$host.'tickets.php?status=seatsFailed' );
             exit;
         }
-        echo "Original Price: " . $original_price;
-        echo "Price: " . $price;
 
         // Check if the requested price matches the original price
         if ($price !== $original_price) {
