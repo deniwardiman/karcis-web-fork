@@ -1,34 +1,66 @@
 <?php
+include "../conn.php";
 
-    include "../conn.php";
+@session_start();
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = @$_POST['email'];
-        $saltKeys = 'A%^&*as';
-        $password = password_hash(@$_POST['password'].$saltKeys, PASSWORD_BCRYPT);
+$id_user = @$_SESSION['id'];
 
-        $sql = "SELECT * FROM users where email = '$email' and password = '$password'";
-        $result = $conn->query($sql);
+$submit = @$_POST['submit'];
+$identity = (int)$submit[0];
 
+$id_ticket = @$_POST['id_ticket'][$identity];
+$seats = @$_POST['seats'][$identity];
+$price = (int)@$_POST['price'][$identity];
 
-        if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) {
-                session_start();
-                @$_SESSION["id"] = $row['id'];
-                @$_SESSION["fullname"] = $row['fullname'];
-                @$_SESSION['tipe'] = 'users';
+$percent = 10;
+$percentInDecimal = $percent / 100;
 
-                header('Location: '.$host.'profile.php');
-            }
-        } else {
-            header('Location: '.$host.'signin.php?status=failed' );
-        }
-        $conn->close();
-    } else {
-        header('Location: '.$host.'signin.php?status=failed' );
+// Get the result.
+$percent = $percentInDecimal * $price;
+
+$total_price = $price + $percent;
+
+// Validate seats and price based on data
+$sql_ticket_info = "SELECT seats, price FROM tickets WHERE id = $id_ticket";
+$result_ticket_info = $conn->query($sql_ticket_info);
+
+if ($result_ticket_info->num_rows > 0) {
+    $ticket_info = $result_ticket_info->fetch_assoc();
+    $available_seats = $ticket_info['seats'];
+    $original_price = $ticket_info['price'];
+
+    // Check if the requested number of seats is available
+    if ($seats < 1 || $seats > $available_seats) {
+        header('Location: '.$host.'tickets.php?status=seatsFailed' );
+        exit;
     }
 
+    // Check if the requested price matches the original price
+    if ($price !== $original_price) {
+        header('Location: '.$host.'tickets.php?status=priceMismatch' );
+        exit;
+    }
+} else {
+    // Ticket not found
+    header('Location: '.$host.'tickets.php?status=ticketNotFound' );
+    exit;
+}
 
+// Insert into table booking
+$sql = "INSERT INTO booking (id_user, id_ticket, status, price) VALUES ('$id_user', '$id_ticket', 0,'$total_price')";
 
+if ($conn->query($sql) === TRUE) {
+    // Update seats in table tickets
+    $sql_update = "UPDATE tickets SET seats = seats - $seats WHERE id = $id_ticket";
+    if($conn->query($sql_update) === FALSE){
+        echo("Error description: " . mysqli_error($conn));
+        exit;
+    } else {
+        header('Location: '.$host.'myBookings.php?status=success');
+    }
+} else {
+    echo("Error description: " . mysqli_error($conn));
+}
+
+$conn->close();
 ?>
