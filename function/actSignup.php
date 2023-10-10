@@ -15,13 +15,13 @@
 
         // check user
         try {
-            $sql_select = "SELECT email from users where email = '$_email' ";
+            $sql_select = "SELECT email from users where email = '$email' ";
             $result = $conn->query($sql_select);
             if ($result->num_rows > 0) {
                 header('location:'.$host.'signup.php?status=failed');
             } else {
                 // insert to database
-                $sql_insert = "INSERT INTO users (email, password) VALUES ('$_email', '$_password')";
+                $sql_insert = "INSERT INTO users (email, password) VALUES ('$email', '$password')";
 
                 if ($conn->query($sql_insert) === TRUE) {
                     $sql_profile = "INSERT INTO user_profile (id_user,fullname) VALUES ('$conn->insert_id','$fullname')";
@@ -35,6 +35,7 @@
 
             $conn->close();
         } catch (Exception $e) {
+            echo json_encode($e->getMessage());
             header('location:'.$host.'signup.php?status=failed');
         }
     } else {
