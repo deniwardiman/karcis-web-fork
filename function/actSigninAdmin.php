@@ -1,4 +1,4 @@
-<?php
+    <?php
     include "../conn.php";
 
     $email = @$_POST['email'];

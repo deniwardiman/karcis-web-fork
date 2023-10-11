@@ -9,7 +9,7 @@ if (mysqli_connect_errno()) {
 }
 
 //$host = 'http://localhost/karcis-web/';
-$host = 'https://b2c8-182-3-46-87.ngrok-free.app/karcis-web/';
+$host = 'https://a97e-182-0-231-195.ngrok-free.app/karcis-web/';
 // $host = 'http://192.168.1.176/karcis/';
 // $host = '/karcis/';
 

@@ -3,7 +3,7 @@
     include "../conn.php";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = $_POST['email'];
+        $email = htmlentities($_POST['email']);
         $password = $_POST['password'];
 
         if (isset($_SESSION['login_attempts']) && $_SESSION['login_attempts'] >= 3) {
@@ -16,6 +16,7 @@
                 unset($_SESSION['last_login_attempt_time']);
             }
         }
+
 
         $email = mysqli_real_escape_string($conn, $email);
         $sql = "SELECT * FROM users WHERE email = '$email'";

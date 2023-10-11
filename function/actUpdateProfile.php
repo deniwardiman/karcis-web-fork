@@ -3,20 +3,23 @@ include "../conn.php";
 
 @session_start();
 
-$id = @$_POST['id_user'];
-$fullname = @$_POST['fullname'];
-$email = @$_POST['email'];
+$id = htmlentities(@$_POST['id_user']);
+$fullname = htmlentities(@$_POST['fullname']);
+$email = htmlentities(@$_POST['email']);
 $phone = null;
 
 if(@$_POST['phone'] != '' || @$_POST['phone'] != null){
     $phone = @$_POST['phone'];
 }
 
-
 // mitra
 $fileName = $_FILES['userfile']['name'];
 
 
+$id = mysqli_real_escape_string($conn, $id);
+$fullname = mysqli_real_escape_string($conn, $fullname);
+$email = mysqli_real_escape_string($conn, $email);
+$phone = mysqli_real_escape_string($conn, $phone);
 
  // nama direktori upload
 $namaDir = '../files/';
@@ -31,9 +34,11 @@ if ($fileName) {
         $user = "UPDATE users SET email = '$email' WHERE id = $id";
         $conn->query($user);
 
-        if (!is_numeric($phone)){
-            header('Location: '.$host.'profile.php?status=failNotelp');
-            exit;
+        if ($phone != null) {
+            if (!is_numeric($phone)){
+                header('Location: '.$host.'profile.php?status=failNotelp');
+                exit;
+            }
         }
 
         $userProfile = "UPDATE user_profile SET fullname = '$fullname', phone = '$phone', identity_card = '$newFileName' WHERE id_user = $id ";
@@ -75,9 +80,11 @@ if ($fileName) {
     $user = "UPDATE users SET email = '$email' WHERE id = $id";
     $conn->query($user);
 
-    if (!is_numeric($phone)){
-        header('Location: '.$host.'profile.php?status=failNotelp');
-        exit;
+    if ($phone != null) {
+        if (!is_numeric($phone)){
+            header('Location: '.$host.'profile.php?status=failNotelp');
+            exit;
+        }
     }
 
     $userProfile = "UPDATE user_profile SET fullname = '$fullname', phone = '$phone' WHERE id_user = $id";

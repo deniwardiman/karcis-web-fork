@@ -12,10 +12,19 @@ include "header.php";
                 </div>
             </div>
             <br><br>
-        <?php } else if(@$_GET['status'] == 'failed'){ ?>
+        <?php } ?>
+        <?php if(@$_GET['status'] == 'failed'){ ?>
             <div class="card col-6" style="border-radius: 10px; box-shadow: 0px 1px 1px 1px #FFF; margin-left: 240px;">
                 <div class="container mt-2 mb-2">
                     <h5 style="color: #252E71;">New Failed</h5>
+                </div>
+            </div>
+            <br><br>
+        <?php } ?>
+        <?php if(@$_GET['status'] == 'failedEmail'){ ?>
+            <div class="card col-6" style="border-radius: 10px; box-shadow: 0px 1px 1px 1px #FFF; margin-left: 240px;">
+                <div class="container mt-2 mb-2">
+                    <h5 style="color: #252E71;">Email not registered</h5>
                 </div>
             </div>
             <br><br>

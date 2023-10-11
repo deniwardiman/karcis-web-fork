@@ -51,7 +51,6 @@ include "function/getProfile.php";
 include "footer.php";
 ?>
 
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
 function validate(file) {
     var ext = file.split(".");

@@ -94,5 +94,3 @@ include "header.php";
 <?php
 include "footer.php";
 ?>
-
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>

@@ -8,9 +8,13 @@
     $submit = @$_POST['submit'];
     $identity = (int)$submit[0];
 
-    $id_ticket = @$_POST['id_ticket'][$identity];
-    $seats = (int)@$_POST['seats'][$identity];
-    $price = (int)@$_POST['price'][$identity];
+    $id_ticket = htmlentities(@$_POST['id_ticket'][$identity]);
+    $seats = (int)htmlentities(@$_POST['seats'][$identity]);
+    $price = (int)htmlentities(@$_POST['price'][$identity]);
+
+    $id_ticket = mysqli_real_escape_string($conn, $id_ticket);
+    $seats = mysqli_real_escape_string($conn, $seats);
+    $price = mysqli_real_escape_string($conn, $price);
 
     $percent = 10;
     $percentInDecimal = $percent / 100;
