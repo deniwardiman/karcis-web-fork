@@ -48,7 +48,7 @@ if($id){
                             <ul class="navbar-nav mt-3">
                               <li class="nav-item" style="margin-right: 70px;">
                                   <div class="input-group" style="margin-left: 80px;">
-                                    <form action="searc h.php" method="get">
+                                    <form action="search.php" method="get">
                                         <div class="input-group mt-1">
                                             <input type="text" class="form-control col-10" placeholder="Search ID Booking" name="IDBOOKING" style="border-top-left-radius: 10px;border-bottom-left-radius: 10px; ">
                                             <div class="input-group-append">

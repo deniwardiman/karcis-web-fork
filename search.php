@@ -1,11 +1,8 @@
 <?php
 include "header.php";
 
-$id_booking = @$_GET['IDBOOKING'];
+$id_booking = htmlspecialchars(htmlentities(@$_GET['IDBOOKING']));
 $id_user = @$_SESSION['id'];
-
-$id_booking =  mysqli_real_escape_string($conn, $id_booking);
-$id_user =  mysqli_real_escape_string($conn, $id_user);
 
 // get data user
 $ticket = "SELECT tickets.*, booking.id as id_booking, booking.price as booking_price, booking.id_user, user_profile.fullname 
