@@ -12,6 +12,7 @@ if (mysqli_connect_errno()) {
 $host = 'https://a97e-182-0-231-195.ngrok-free.app/karcis-web/';
 // $host = 'http://192.168.1.176/karcis/';
 // $host = '/karcis/';
+//fdas
 
 error_reporting(E_ALL);
 
