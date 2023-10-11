@@ -6,7 +6,7 @@ include "../conn.php";
 $id = @$_POST['id_user'];
 $fullname = @$_POST['fullname'];
 $email = @$_POST['email'];
-$phone = 0;
+$phone = null;
 
 if(@$_POST['phone'] != '' || @$_POST['phone'] != null){
     $phone = @$_POST['phone'];
@@ -31,14 +31,23 @@ if ($fileName) {
         $user = "UPDATE users SET email = '$email' WHERE id = $id";
         $conn->query($user);
 
+        if (!is_numeric($phone)){
+            header('Location: '.$host.'profile.php?status=failNotelp');
+            exit;
+        }
+
         $userProfile = "UPDATE user_profile SET fullname = '$fullname', phone = '$phone', identity_card = '$newFileName' WHERE id_user = $id ";
+        echo json_encode($userProfile);
+        die;
+
+
         $conn->query($userProfile);
 
         if($conn->query($user) === FALSE && $conn->query($userProfile) === FALSE){
             echo("Error description: " . mysqli_error($conn));
         }
 
-        header('Location: '.$host.'profile.php?status=success');
+        header('Location: '.$host.'profile.php?status=successProfile');
     }else{
         echo "File gagal diupload."; 
     }
@@ -66,6 +75,11 @@ if ($fileName) {
     $user = "UPDATE users SET email = '$email' WHERE id = $id";
     $conn->query($user);
 
+    if (!is_numeric($phone)){
+        header('Location: '.$host.'profile.php?status=failNotelp');
+        exit;
+    }
+
     $userProfile = "UPDATE user_profile SET fullname = '$fullname', phone = '$phone' WHERE id_user = $id";
     $conn->query($userProfile);
 
@@ -73,7 +87,6 @@ if ($fileName) {
         echo("Error description: " . mysqli_error($conn));
     }
 
-    header('Location: '.$host.'profile.php?status=success');
+    header('Location: '.$host.'profile.php?status=successProfile');
 }
-
 

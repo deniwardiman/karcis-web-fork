@@ -19,12 +19,26 @@ if(@$_SESSION['tipe'] == 'admin'){
     <br><br><br><br>
     <?php if(@$_GET['status'] == 'success') { ?>
         <div class="card col-4" style="border-radius: 10px; box-shadow: 0px 1px 1px 1px #FFF; margin-left: 90px;">
-            <div class="container mt-2 mb-2">
-                <h5 style="color: #252E71;">Booked Successfull</h5>
+            <div class="container mt-3 mb-2">
+                <h5 style="color: #252E71;">Booked Successfully</h5>
             </div>
         </div>
         <br><br>
-    <?php } ?>
+    <?php } elseif (@$_GET['status'] == 'successProfile') {?>
+        <div class="card col-4" style="border-radius: 10px; box-shadow: 0px 1px 1px 1px #FFF; margin-left: 90px;">
+            <div class="container mt-3 mb-2">
+                <h5 style="color: #252E71;">Profile Update Successfully</h5>
+            </div>
+        </div>
+        <br><br>
+    <?php } elseif (@$_GET['status'] == 'failNotelp') { ?>
+        <div class="card col-4" style="border-radius: 10px; box-shadow: 0px 1px 1px 1px #FFF; margin-left: 90px;">
+            <div class="container mt-3 mb-2">
+                <h5 style="color: #252E71;">Nomor telepon tidak valid</h5>
+            </div>
+        </div>
+        <br><br>
+    <?php }?>
     <div class="container">
         <div class="card">
             <div class="container">
@@ -69,3 +83,5 @@ if(@$_SESSION['tipe'] == 'admin'){
 <?php
 include "footer.php";
 ?>
+
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>

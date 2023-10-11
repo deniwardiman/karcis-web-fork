@@ -27,8 +27,16 @@ include "header.php";
                         <?php if(@$_GET['status'] == 'failed'){?>
                             <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Signup Failed</b>
                         <?php } ?>
-
-<!--                        --><?php //echo $result?>
+                        <?php if(@$_GET['status'] == 'failedKurang'){?>
+                            <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Password must be 8 characters</b>
+                        <?php } ?>
+                        <?php if(@$_GET['status'] == 'failedBesar' || @$_GET['status'] == 'failedKecil'){?>
+                            <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">The password must have upper and lower case letters</b>
+                        <?php } ?>
+                        <?php if(@$_GET['status'] == 'failedAngka' || @$_GET['status'] == 'failedSymbol'){?>
+                            <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">
+                                The password must contain a combination of numbers and symbols</b>
+                        <?php } ?>
 
                     <center>
                         <img src="assets/img/icon-landing.svg" class="img-responsive" style="margin-bottom: 100px;">
